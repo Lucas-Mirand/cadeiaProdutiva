@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cadeia Produtiva — Amassadeira Semi Rápida Brasforno</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+    <link rel="shortcut icon" href="https://static.vecteezy.com/system/resources/previews/019/606/477/non_2x/bread-graphic-clipart-design-free-png.png" type="image/x-icon">
+  </head>
+  <body>
+    <!-- PROGRESS BAR -->
+    <div id="progress-bar"></div>
+
+    <!-- NAV DOTS -->
+    <nav class="nav-dots">
+      <div class="nav-dot active" data-target="hero" data-label="Início"></div>
+      <div class="nav-dot" data-target="origem" data-label="Origem"></div>
+      <div class="nav-dot" data-target="cadeia" data-label="Cadeia"></div>
+      <div
+        class="nav-dot"
+        data-target="infografico"
+        data-label="Produção"
+      ></div>
+      <div class="nav-dot" data-target="roi-section" data-label="Retorno"></div>
+      <div class="nav-dot" data-target="operacao" data-label="Operação"></div>
+      <div class="nav-dot" data-target="desafios" data-label="Desafios"></div>
+      <div class="nav-dot" data-target="inovacao" data-label="Inovação"></div>
+    </nav>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+      <div class="hero-bg-pattern"></div>
+      <div class="hero-left">
+        <div class="hero-tag">Cadeia Produtiva · SENAI · Panificação</div>
+        <h1 class="hero-title">
+          Amassadeira<br />
+          <em>Semi Rápida</em><br />
+          Brasforno
+        </h1>
+        <p class="hero-subtitle">
+          Do aço bruto ao pão quentinho — análise completa da cadeia produtiva
+          do equipamento central da panificação moderna, com dados de produção,
+          ROI e cadeia interativa.
+        </p>
+        <div class="hero-stats">
+          <div>
+            <div class="hero-stat-num">3×</div>
+            <div class="hero-stat-label">Mais produção</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">~18m</div>
+            <div class="hero-stat-label">Retorno investimento</div>
+          </div>
+          <div>
+            <div class="hero-stat-num">6</div>
+            <div class="hero-stat-label">Elos na cadeia</div>
+          </div>
+        </div>
+        <div class="hero-school">
+          <div class="hero-school-line"></div>
+          <span>Trabalho Acadêmico · SENAI</span>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-machine-wrap">
+          <div class="hero-machine-bg"></div>
+          <div class="hero-machine-ring"></div>
+          <div class="hero-machine-ring2"></div>
+          <!-- Placeholder — troque o src pela imagem real se necessário -->
+          <img
+            class="hero-machine-img"
+            src="https://static.vecteezy.com/system/resources/previews/019/606/477/non_2x/bread-graphic-clipart-design-free-png.png"
+            alt="Amassadeira Semi Rápida Brasforno"
+            onerror="
+              this.style.display = 'none';
+              this.parentNode.querySelector(
+                '.hero-machine-fallback',
+              ).style.display = 'flex';
+            "
+          />
+        </div>
+        <div
+          class="hero-machine-fallback"
+          style="
+            display: none;
+            position: absolute;
+            inset: 0;
+            align-items: center;
+            justify-content: center;
+            font-size: 7rem;
+            opacity: 0.5;
+          "
+        >
+          🍞
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ORIGEM ============ -->
+    <section class="origin" id="origem">
+      <div class="container">
+        <div class="sec-header fade-in">
+          <div class="sec-num">01</div>
+          <div class="sec-titles">
+            <p>Identificação & Origem</p>
+            <h2>O Equipamento e seu Fabricante</h2>
+          </div>
+        </div>
+        <div class="origin-grid">
+          <div class="origin-text fade-in">
+            <p>
+              A <strong>Amassadeira Semi Rápida</strong> da Brasforno é um
+              equipamento industrial voltado para panificação e confeitaria. Sua
+              cadeia começa na própria Brasforno, responsável por adquirir
+              matérias-primas e realizar a montagem completa da máquina.
+            </p>
+            <p>
+              Quando adquirida por uma instituição, ela entra como um
+              <strong>bem de capital</strong>. No SENAI, é tombada como
+              patrimônio institucional — sua instalação técnica foi realizada
+              pelo professor responsável de elétrica, garantindo funcionamento
+              seguro e dentro das normas.
+            </p>
+            <p>
+              Os componentes incluem chapas de aço, motores elétricos, correias
+              de transmissão, botões de emergência e grades de proteção —
+              fornecidos por empresas especializadas antes de chegarem à linha
+              de montagem da Brasforno.
+            </p>
+
+            <!-- Machine photo gallery -->
+            <div class="machine-gallery">
+              <div>
+                <img
+                  src="maquinaFrente.png"
+                  alt="Amassadeira — Vista Frontal"
+                  onerror="
+                    this.style.background = '#2a1f0e';
+                    this.style.minHeight = '200px';
+                    this.alt = 'Foto frontal';
+                  "
+                />
+                <p class="gallery-caption">Vista Frontal</p>
+              </div>
+              <div>
+                <img
+                  src="maquinaLado.png"
+                  alt="Amassadeira — Vista Lateral"
+                  onerror="
+                    this.style.background = '#1a1208';
+                    this.style.minHeight = '200px';
+                  "
+                />
+                <p class="gallery-caption">Vista Lateral</p>
+              </div>
+            </div>
+          </div>
+          <div class="origin-card fade-in">
+            <h3>Ficha Técnica</h3>
+            <div class="spec-item">
+              <span>Equipamento</span><span>Amassadeira Semi Rápida</span>
+            </div>
+            <div class="spec-item">
+              <span>Fabricante</span><span>Brasforno</span>
+            </div>
+            <div class="spec-item">
+              <span>Categoria</span><span>Equipamento Industrial</span>
+            </div>
+            <div class="spec-item">
+              <span>Setor</span><span>Panificação & Confeitaria</span>
+            </div>
+            <div class="spec-item">
+              <span>Modelo de Venda</span><span>B2B</span>
+            </div>
+            <div class="spec-item">
+              <span>Logística</span><span>Maquinário Pesado</span>
+            </div>
+            <div class="spec-item">
+              <span>Instalação</span><span>Técnica Especializada</span>
+            </div>
+            <div class="spec-item">
+              <span>Capacidade Tacho</span><span>25–50 kg de massa</span>
+            </div>
+            <div class="spec-item">
+              <span>Faixa de Preço</span><span>R$ 8.000 – R$ 18.000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CADEIA INTERATIVA ============ -->
+    <section class="cadeia sec-dark" id="cadeia">
+      <div class="container">
+        <div class="sec-header fade-in">
+          <div class="sec-num">02</div>
+          <div class="sec-titles">
+            <p>Clique em cada etapa para expandir</p>
+            <h2>Cadeia Produtiva Interativa</h2>
+          </div>
+        </div>
+        <div class="chain-interactive">
+          <div class="chain-step" data-step="0">
+            <div class="chain-step-num">1</div>
+            <div class="chain-icon">⛏️</div>
+            <div class="chain-body">
+              <h3>Fornecedores de Matéria-Prima</h3>
+              <p class="chain-short">
+                Empresas especializadas que fornecem os insumos para a
+                Brasforno.
+              </p>
+              <div class="chain-detail">
+                <div class="chain-detail-inner">
+                  Chapas de aço inox, grades de proteção, motores elétricos
+                  trifásicos, correias de transmissão, botões de emergência e
+                  painéis elétricos são adquiridos de fornecedores
+                  especializados. A qualidade desses componentes define
+                  diretamente a durabilidade e segurança do equipamento final.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chain-step" data-step="1">
+            <div class="chain-step-num">2</div>
+            <div class="chain-icon">🏭</div>
+            <div class="chain-body">
+              <h3>Produção — Brasforno</h3>
+              <p class="chain-short">
+                Fabricação, montagem e controle de qualidade do equipamento.
+              </p>
+              <div class="chain-detail">
+                <div class="chain-detail-inner">
+                  A Brasforno realiza a montagem completa: estrutura metálica,
+                  instalação do motor, sistema de transmissão por correia, tacho
+                  de inox e painel de controle com sistemas de segurança
+                  integrados. Após montagem, o equipamento passa por testes de
+                  funcionamento antes da expedição.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chain-step" data-step="2">
+            <div class="chain-step-num">3</div>
+            <div class="chain-icon">🚚</div>
+            <div class="chain-body">
+              <h3>Distribuição e Logística</h3>
+              <p class="chain-short">
+                Transporte especializado de maquinário pesado para o cliente.
+              </p>
+              <div class="chain-detail">
+                <div class="chain-detail-inner">
+                  A distribuição exige logística de carga pesada com
+                  equipamentos de içamento. A venda é 100% B2B — não há canal de
+                  varejo. O frete e a entrega com içamento muitas vezes estão
+                  inclusos no valor, e a instalação é feita por técnico
+                  especializado no local.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chain-step" data-step="3">
+            <div class="chain-step-num">4</div>
+            <div class="chain-icon">🏢</div>
+            <div class="chain-body">
+              <h3>Clientes Compradores (B2B)</h3>
+              <p class="chain-short">
+                Padarias, confeitarias, fábricas de salgados e instituições de
+                ensino.
+              </p>
+              <div class="chain-detail">
+                <div class="chain-detail-inner">
+                  Em empresas, o equipamento é um ativo produtivo. No SENAI, é
+                  tombado como patrimônio da instituição com plaqueta de
+                  registro. A compra envolve processo de licitação ou orçamento
+                  direto, com instalação técnica obrigatória — no SENAI,
+                  realizada pelo professor de elétrica.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chain-step" data-step="4">
+            <div class="chain-step-num">5</div>
+            <div class="chain-icon">👨‍🍳</div>
+            <div class="chain-body">
+              <h3>Operadores do Equipamento</h3>
+              <p class="chain-short">
+                Padeiros, salgadeiros e alunos do SENAI que operam a máquina.
+              </p>
+              <div class="chain-detail">
+                <div class="chain-detail-inner">
+                  O operador precisa conhecer o tempo de sova específico por
+                  tipo de massa (pão francês, semi-italiano, salgado), respeitar
+                  os protocolos de segurança e realizar higienização após cada
+                  uso. No SENAI, os alunos treinam essa competência em ambiente
+                  controlado.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chain-step" data-step="5">
+            <div class="chain-step-num">6</div>
+            <div class="chain-icon">🍞</div>
+            <div class="chain-body">
+              <h3>Consumidor Final</h3>
+              <p class="chain-short">
+                O cliente final da padaria que adquire o produto pronto.
+              </p>
+              <div class="chain-detail">
+                <div class="chain-detail-inner">
+                  Pães, salgados e produtos de confeitaria chegam ao consumidor
+                  final como resultado de toda a cadeia. O alto consumo diário
+                  desse mercado é o motor econômico que justifica o investimento
+                  no equipamento industrial — e que mantém o setor de
+                  panificação em constante crescimento no Brasil.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ INFOGRÁFICO DE PRODUÇÃO ============ -->
+    <section class="infografico" id="infografico">
+      <div class="container">
+        <div class="sec-header fade-in">
+          <div class="sec-num">03</div>
+          <div class="sec-titles">
+            <p>Comparativo de Eficiência</p>
+            <h2>Produção: Com vs. Sem a Máquina</h2>
+          </div>
+        </div>
+
+        <div class="prod-comparison fade-in">
+          <!-- SEM MÁQUINA -->
+          <div class="prod-side manual">
+            <h3>❌ Sem Amassadeira</h3>
+
+            <p class="prod-bar-label">Capacidade por turno (kg de massa)</p>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                data-width="18"
+                style="background: #7a8a96"
+              ></div>
+            </div>
+            <p class="bar-value" style="color: var(--cream)">~18 kg / turno</p>
+
+            <p class="prod-bar-label">Padronização da massa</p>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                data-width="30"
+                style="background: #7a8a96"
+              ></div>
+            </div>
+            <p class="bar-value" style="color: var(--cream)">Baixa (30%)</p>
+
+            <p class="prod-bar-label">Custo de mão de obra</p>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                data-width="85"
+                style="background: #b84b1e"
+              ></div>
+            </div>
+            <p class="bar-value" style="color: var(--cream)">Alto (85%)</p>
+
+            <p class="prod-bar-label">Tempo de sova por lote</p>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                data-width="90"
+                style="background: #b84b1e"
+              ></div>
+            </div>
+            <p class="bar-value" style="color: var(--cream)">
+              ~20 min por lote
+            </p>
+
+            <div class="prod-highlight">
+              ⚠️ Impossível produzir massas pesadas (pão semi-italiano) em
+              escala. Alta fadiga física do operador.
+            </div>
+          </div>
+
+          <!-- COM MÁQUINA -->
+          <div class="prod-side maquina">
+            <h3>✅ Com Amassadeira Brasforno</h3>
+
+            <p class="prod-bar-label">Capacidade por turno (kg de massa)</p>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                data-width="90"
+                style="background: var(--warm)"
+              ></div>
+            </div>
+            <p class="bar-value" style="color: var(--warm)">~60 kg / turno</p>
+
+            <p class="prod-bar-label">Padronização da massa</p>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                data-width="95"
+                style="background: var(--warm)"
+              ></div>
+            </div>
+            <p class="bar-value" style="color: var(--warm)">Alta (95%)</p>
+
+            <p class="prod-bar-label">Custo de mão de obra</p>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                data-width="30"
+                style="background: var(--warm)"
+              ></div>
+            </div>
+            <p class="bar-value" style="color: var(--warm)">Reduzido (30%)</p>
+
+            <p class="prod-bar-label">Tempo de sova por lote</p>
+            <div class="bar-track">
+              <div
+                class="bar-fill"
+                data-width="20"
+                style="background: var(--warm)"
+              ></div>
+            </div>
+            <p class="bar-value" style="color: var(--warm)">~5 min por lote</p>
+
+            <div class="prod-highlight">
+              ✅ Escala industrial, produto padronizado, operador disponível
+              para outras tarefas simultâneas.
+            </div>
+          </div>
+        </div>
+
+        <!-- GRÁFICO BARRAS COMPARATIVO -->
+        <div
+          class="fade-in"
+          style="
+            background: var(--dark);
+            padding: 2rem;
+            border: 1px solid rgba(212, 120, 10, 0.2);
+          "
+        >
+          <p
+            style="
+              font-family: &quot;Playfair Display&quot;, serif;
+              color: var(--warm);
+              font-size: 1rem;
+              margin-bottom: 1.5rem;
+            "
+          >
+            📊 Comparativo Visual de Produtividade
+          </p>
+          <canvas id="prodChart" height="200"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ ROI ============ -->
+    <section class="roi-section sec-dark" id="roi-section">
+      <div class="container">
+        <div class="sec-header fade-in">
+          <div class="sec-num">04</div>
+          <div class="sec-titles">
+            <p>Viabilidade Financeira</p>
+            <h2>Custo e Retorno do Investimento</h2>
+          </div>
+        </div>
+        <div class="roi-grid">
+          <div class="roi-chart-wrap fade-in">
+            <p class="roi-chart-title">
+              📈 Projeção de Retorno — Padaria Pequena (24 meses)
+            </p>
+            <div class="roi-canvas-wrap">
+              <canvas id="roiChart" height="280"></canvas>
+            </div>
+            <p
+              style="
+                font-size: 0.72rem;
+                color: var(--dust);
+                margin-top: 1rem;
+                line-height: 1.6;
+              "
+            >
+              * Estimativa baseada em padaria pequena: produção de ~60 kg/turno,
+              6 dias/semana, receita bruta de R$ 4.200/semana com margem média
+              de 42%.
+            </p>
+          </div>
+          <div class="roi-info fade-in">
+            <div class="roi-card">
+              <div class="roi-card-label">Investimento Inicial Estimado</div>
+              <div class="roi-card-value">R$ 12.000</div>
+              <div class="roi-card-sub">
+                Valor médio de mercado para modelos de 25–30 kg (inclui frete e
+                instalação)
+              </div>
+            </div>
+            <div class="roi-card">
+              <div class="roi-card-label">Lucro adicional mensal estimado</div>
+              <div class="roi-card-value">R$ 680</div>
+              <div class="roi-card-sub">
+                Diferença entre produção manual e mecanizada descontando
+                manutenção e energia
+              </div>
+            </div>
+            <div class="roi-card">
+              <div class="roi-card-label">Tempo de Payback Estimado</div>
+              <div class="roi-card-value">~18 meses</div>
+              <div class="roi-card-sub">
+                A partir do 18º mês o equipamento começa a gerar lucro líquido
+                acumulado positivo
+              </div>
+            </div>
+            <div class="roi-card">
+              <div class="roi-card-label">Economia anual em mão de obra</div>
+              <div class="roi-card-value">R$ 4.800</div>
+              <div class="roi-card-sub">
+                Redução de horas de trabalho braçal de sova, liberando o padeiro
+                para outras funções
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ OPERAÇÃO ============ -->
+    <section class="operation" id="operacao">
+      <div class="container">
+        <div class="sec-header fade-in">
+          <div class="sec-num">05</div>
+          <div class="sec-titles">
+            <p>Processo Produtivo</p>
+            <h2>Operação e Clientes</h2>
+          </div>
+        </div>
+        <div class="op-grid fade-in">
+          <div class="op-card">
+            <span class="op-emoji">🎓</span>
+            <h3>Qualificação Técnica</h3>
+            <p>
+              O operador deve dominar o acionamento, o tempo de sova para cada
+              tipo de massa e os protocolos de parada de emergência.
+            </p>
+          </div>
+          <div class="op-card">
+            <span class="op-emoji">🔒</span>
+            <h3>Sistemas de Segurança</h3>
+            <p>
+              Proteções mecânicas e botões de emergência não podem ser burlados.
+              As normas do SENAI reforçam esse protocolo em ambiente
+              educacional.
+            </p>
+          </div>
+          <div class="op-card">
+            <span class="op-emoji">🏪</span>
+            <h3>Mercado Comercial</h3>
+            <p>
+              Padarias, confeitarias e fábricas de salgados aproveitam a escala
+              industrial do equipamento para atender alta demanda diária.
+            </p>
+          </div>
+          <div class="op-card">
+            <span class="op-emoji">📚</span>
+            <h3>Ambiente SENAI</h3>
+            <p>
+              Alunos de panificação treinam em condições reais de mercado,
+              desenvolvendo competências técnicas valorizadas pelas empresas.
+            </p>
+          </div>
+          <div class="op-card">
+            <span class="op-emoji">📈</span>
+            <h3>Escala e Padronização</h3>
+            <p>
+              O setor de panificação exige consistência de produto — a máquina
+              garante que cada lote tenha o mesmo resultado técnico.
+            </p>
+          </div>
+          <div class="op-card">
+            <span class="op-emoji">⚡</span>
+            <h3>Produção Contínua</h3>
+            <p>
+              Utilizada diariamente nos dois setores do laboratório, a
+              amassadeira é o coração da linha de produção — sua parada paralisa
+              tudo.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DESAFIOS ============ -->
+    <section class="challenges" id="desafios">
+      <div class="container">
+        <div class="sec-header fade-in">
+          <div class="sec-num">06</div>
+          <div class="sec-titles">
+            <p>Gargalos e Obstáculos</p>
+            <h2>Desafios da Cadeia</h2>
+          </div>
+        </div>
+        <div class="ch-grid fade-in">
+          <div class="ch-block">
+            <h3>⚠️ Impacto de Falhas</h3>
+            <p>
+              O maior gargalo é a dependência crítica do equipamento. Se a
+              amassadeira para, a produção despenca imediatamente — não há
+              alternativa equivalente em escala.
+            </p>
+            <ul>
+              <li>Atraso em toda a linha de produção</li>
+              <li>
+                Impossibilidade de fabricar massas pesadas (pão semi-italiano)
+              </li>
+              <li>Impacto direto no faturamento diário</li>
+              <li>Substituição manual inviável em larga escala</li>
+            </ul>
+          </div>
+          <div class="ch-block">
+            <h3>🔧 Manutenção Preventiva</h3>
+            <p>
+              Peças de desgaste natural exigem atenção constante. O principal
+              relato mecânico identificado na pesquisa foi a troca periódica de
+              correia interna.
+            </p>
+            <ul>
+              <li>Correia se desgasta com uso contínuo e força do motor</li>
+              <li>Manutenção preventiva evita paradas inesperadas</li>
+              <li>Técnico especializado necessário para o reparo</li>
+              <li>Estoque de peças de reposição é recomendado</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ INOVAÇÃO ============ -->
+    <section class="innovation sec-dark" id="inovacao">
+      <div class="container">
+        <div class="sec-header fade-in">
+          <div class="sec-num">07</div>
+          <div class="sec-titles">
+            <p>Vantagens & Melhorias</p>
+            <h2>Inovação Proposta</h2>
+          </div>
+        </div>
+        <div class="inno-split fade-in">
+          <div class="inno-block" data-label="Vantagem Competitiva">
+            <h3>🏆 Ponto Forte do Setor</h3>
+            <p>
+              O grande trunfo de possuir o equipamento é atender à alta demanda
+              de um mercado forte e em ascensão. O setor de panificação é movido
+              por altíssimo consumo diário — a amassadeira garante a
+              <strong>escala e padronização</strong> necessárias para competir
+              profissionalmente.
+            </p>
+          </div>
+          <div class="inno-block" data-label="Proposta de Inovação">
+            <h3>💡 Tacho Removível</h3>
+            <p>
+              A proposta de inovação é a criação de um
+              <strong>sistema de remoção do tacho</strong> (recipiente onde a
+              massa é sovada). Isso resolveria o problema ergonômico de limpeza
+              e higienização, reduzindo tempo de parada entre turnos —
+              beneficiando padarias e laboratórios do SENAI.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONCLUSÃO ============ -->
+    <section class="conclusion">
+      <div class="container">
+        <h2>Um equipamento <em>insubstituível</em> na panificação moderna</h2>
+        <p>
+          A Amassadeira Semi Rápida da Brasforno representa a espinha dorsal da
+          cadeia produtiva da panificação. Sua robustez atende a um mercado de
+          alto giro — mas seu uso eficiente depende de mão de obra qualificada,
+          manutenções preventivas e melhoria contínua de design.
+        </p>
+        <div class="badge">
+          🎓 Trabalho Acadêmico · SENAI · Panificação e Confeitaria
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <span>Cadeia Produtiva — Amassadeira Semi Rápida Brasforno</span>
+      <span>Trabalho Acadêmico · SENAI 2025</span>
+    </footer>
+
+    <!-- ============ SCRIPTS ============ -->
+    <script src="script.js"></script>
+  </body>
+</html>
