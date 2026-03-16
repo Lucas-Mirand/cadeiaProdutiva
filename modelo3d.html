@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizador 3D - Amassadeira Semi Rápida</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #eef2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        #info-panel {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            pointer-events: none;
+            z-index: 10;
+            border-left: 4px solid #e67e22;
+        }
+        #info-panel h1 {
+            margin: 0 0 5px 0;
+            font-size: 1.3rem;
+            color: #2c3e50;
+        }
+        #info-panel p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #555;
+            line-height: 1.4;
+        }
+        #loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            background: rgba(255,255,255,0.8);
+            padding: 10px 20px;
+            border-radius: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+    <!-- Importação do Three.js e complementos via Import Map -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="info-panel">
+        <h1>Amassadeira Semi Rápida</h1>
+        <p>Interaja com o modelo usando o painel à direita.<br><strong>Dica de segurança:</strong> A máquina para<br>se a grade de proteção for aberta!</p>
+    </div>
+    <div id="loading">A construir o equipamento...</div>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
+
+        // --- Configuração da Cena ---
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xeef2f5);
+        scene.fog = new THREE.Fog(0xeef2f5, 5, 30);
+
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(4, 3, 5);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.body.appendChild(renderer.domElement);
+
+        document.getElementById('loading').style.display = 'none';
+
+        // --- Controlos de Câmara ---
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.target.set(0, 1, 0);
+        controls.minDistance = 2;
+        controls.maxDistance = 10;
+        controls.maxPolarAngle = Math.PI / 2 - 0.05; // Não deixar a câmara ir abaixo do chão
+
+        // --- Iluminação ---
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+        scene.add(ambientLight);
+
+        const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        dirLight.position.set(5, 8, 3);
+        dirLight.castShadow = true;
+        dirLight.shadow.mapSize.width = 1024;
+        dirLight.shadow.mapSize.height = 1024;
+        dirLight.shadow.camera.near = 0.5;
+        dirLight.shadow.camera.far = 20;
+        dirLight.shadow.camera.left = -5;
+        dirLight.shadow.camera.right = 5;
+        dirLight.shadow.camera.top = 5;
+        dirLight.shadow.camera.bottom = -5;
+        scene.add(dirLight);
+
+        const fillLight = new THREE.DirectionalLight(0xddeeff, 0.4);
+        fillLight.position.set(-5, 3, -5);
+        scene.add(fillLight);
+
+        // --- Chão ---
+        const gridHelper = new THREE.GridHelper(20, 20, 0xbdc3c7, 0xe0e6ed);
+        scene.add(gridHelper);
+
+        const planeGeo = new THREE.PlaneGeometry(20, 20);
+        const planeMat = new THREE.ShadowMaterial({ opacity: 0.15 });
+        const plane = new THREE.Mesh(planeGeo, planeMat);
+        plane.rotation.x = -Math.PI / 2;
+        plane.receiveShadow = true;
+        scene.add(plane);
+
+        // --- Materiais da Amassadeira ---
+        const bodyMat = new THREE.MeshStandardMaterial({
+            color: 0xf5f6fa, // Branco epóxi da estrutura
+            roughness: 0.3,
+            metalness: 0.1
+        });
+       
+        const inoxMat = new THREE.MeshStandardMaterial({
+            color: 0xa4b0be, // Aço Inox
+            roughness: 0.2,
+            metalness: 0.8
+        });
+
+        const darkMat = new THREE.MeshStandardMaterial({
+            color: 0x2f3542, // Borrachas e pés
+            roughness: 0.8
+        });
+
+        const doughMat = new THREE.MeshStandardMaterial({
+            color: 0xfde0ad, // Cor de massa de pão
+            roughness: 0.9,
+            metalness: 0.0
+        });
+
+        const buttonGreenMat = new THREE.MeshStandardMaterial({ color: 0x2ecc71, roughness: 0.4 });
+        const buttonRedMat = new THREE.MeshStandardMaterial({ color: 0xe74c3c, roughness: 0.4 });
+
+        // --- Variáveis de Animação ---
+        let hookMesh, bowlGroup, doughMesh, guardGroup;
+        let isMixerRunning = false;
+        const mixerGroup = new THREE.Group();
+        scene.add(mixerGroup);
+
+        // --- Construção do Equipamento ---
+        function buildMixer() {
+            // Limpeza
+            while(mixerGroup.children.length > 0) mixerGroup.remove(mixerGroup.children[0]);
+
+            // 1. BASE (Estrutura inferior)
+            const baseGeo = new THREE.BoxGeometry(0.8, 0.3, 1.3);
+            const base = new THREE.Mesh(baseGeo, bodyMat);
+            base.position.set(0, 0.2, 0);
+            base.castShadow = true;
+            base.receiveShadow = true;
+            mixerGroup.add(base);
+
+            // Pés de borracha
+            const peGeo = new THREE.CylinderGeometry(0.05, 0.04, 0.05, 16);
+            [
+                [-0.35, -0.55], [0.35, -0.55], [-0.35, 0.55], [0.35, 0.55]
+            ].forEach(pos => {
+                const pe = new THREE.Mesh(peGeo, darkMat);
+                pe.position.set(pos[0], 0.025, pos[1]);
+                mixerGroup.add(pe);
+            });
+
+            // 2. COLUNA TRASEIRA
+            const colGeo = new THREE.BoxGeometry(0.7, 1.0, 0.4);
+            const col = new THREE.Mesh(colGeo, bodyMat);
+            col.position.set(0, 0.85, -0.45);
+            col.castShadow = true;
+            col.receiveShadow = true;
+            mixerGroup.add(col);
+
+            // 3. CABEÇOTE (Braço superior)
+            const headGeo = new THREE.BoxGeometry(0.7, 0.4, 0.9);
+            const head = new THREE.Mesh(headGeo, bodyMat);
+            head.position.set(0, 1.55, -0.2);
+            head.castShadow = true;
+            head.receiveShadow = true;
+            mixerGroup.add(head);
+
+            // Painel de botões
+            const btnPanelGeo = new THREE.BoxGeometry(0.72, 0.2, 0.1);
+            const btnPanel = new THREE.Mesh(btnPanelGeo, darkMat);
+            btnPanel.position.set(0, 1.6, 0.25);
+            mixerGroup.add(btnPanel);
+
+            // Botão Liga (Verde)
+            const btn1 = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.02, 16), buttonGreenMat);
+            btn1.rotation.x = Math.PI / 2;
+            btn1.position.set(0.2, 1.6, 0.3);
+            mixerGroup.add(btn1);
+
+            // Botão Desliga / Emergência (Vermelho)
+            const btn2 = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.03, 16), buttonRedMat);
+            btn2.rotation.x = Math.PI / 2;
+            btn2.position.set(-0.2, 1.6, 0.3);
+            mixerGroup.add(btn2);
+
+            // 4. TACHO E EIXO INFERIOR
+            bowlGroup = new THREE.Group();
+            bowlGroup.position.set(0, 0.35, 0.25);
+            mixerGroup.add(bowlGroup);
+
+            // Base giratória do tacho
+            const bowlBase = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 0.35, 0.1, 32), darkMat);
+            bowlBase.position.y = 0.05;
+            bowlGroup.add(bowlBase);
+
+            // O Tacho (Aço inox)
+            const bowlGeo = new THREE.CylinderGeometry(0.55, 0.5, 0.6, 32, 1, true); // True = sem as "tampas"
+            const bowl = new THREE.Mesh(bowlGeo, inoxMat);
+            bowl.material.side = THREE.DoubleSide; // Renderiza os dois lados do inox
+            bowl.position.y = 0.4;
+            bowl.castShadow = true;
+            bowl.receiveShadow = true;
+            bowlGroup.add(bowl);
+           
+            // Fundo do tacho interior
+            const bowlBottom = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 0.02, 32), inoxMat);
+            bowlBottom.position.y = 0.11;
+            bowlGroup.add(bowlBottom);
+
+            // 5. A MASSA
+            doughMesh = new THREE.Mesh(new THREE.SphereGeometry(0.48, 32, 16), doughMat);
+            doughMesh.position.y = 0.3; // Centro da massa
+            doughMesh.scale.y = 0.5; // Achatada
+            bowlGroup.add(doughMesh);
+
+            // 6. BATEDOR (Gancho/Espiral)
+            const hookGroup = new THREE.Group();
+            hookGroup.position.set(0, 1.35, 0.25);
+            mixerGroup.add(hookGroup);
+
+            // Eixo principal do batedor
+            const hookShaft = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.4, 16), inoxMat);
+            hookShaft.position.y = -0.2;
+            hookShaft.castShadow = true;
+            hookGroup.add(hookShaft);
+
+            // Curva do gancho
+            const curve = new THREE.CatmullRomCurve3([
+                new THREE.Vector3(0, -0.4, 0),
+                new THREE.Vector3(0.2, -0.5, 0),
+                new THREE.Vector3(0.25, -0.7, -0.1),
+                new THREE.Vector3(0, -0.85, 0),
+                new THREE.Vector3(-0.15, -0.75, 0.1)
+            ]);
+            const hookTubeGeo = new THREE.TubeGeometry(curve, 20, 0.04, 8, false);
+            const hookCurve = new THREE.Mesh(hookTubeGeo, inoxMat);
+            hookCurve.castShadow = true;
+            hookGroup.add(hookCurve);
+           
+            hookMesh = hookGroup;
+
+            // 7. GRADE DE PROTEÇÃO
+            guardGroup = new THREE.Group();
+            // Ponto de pivot na parte de trás da grade, encostada ao cabeçote
+            guardGroup.position.set(0, 1.35, -0.25);
+            mixerGroup.add(guardGroup);
+
+            const guardWireMat = new THREE.MeshStandardMaterial({
+                color: 0xbdc3c7,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.8
+            });
+
+            // Grelha hemisférica
+            const guardGeo = new THREE.SphereGeometry(0.58, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2.5);
+            const guard = new THREE.Mesh(guardGeo, guardWireMat);
+            // Reajustar a grelha em relação ao pivot
+            guard.position.set(0, 0, 0.5);
+            guardGroup.add(guard);
+
+            // Anel base da grelha
+            const guardRingGeo = new THREE.TorusGeometry(0.58, 0.015, 8, 32);
+            const guardRing = new THREE.Mesh(guardRingGeo, inoxMat);
+            guardRing.rotation.x = Math.PI / 2;
+            guardRing.position.set(0, -0.4, 0.5);
+            guardGroup.add(guardRing);
+        }
+
+        buildMixer();
+
+        // --- Interface Lil-GUI ---
+        const gui = new GUI({ title: 'Controlo da Amassadeira' });
+
+        const params = {
+            ligado: false,
+            velocidade: 5,
+            gradeAberta: false,
+            quantidadeMassa: 50
+        };
+
+        // Estado inicial da massa
+        function updateDough() {
+            const scale = 0.2 + (params.quantidadeMassa / 100) * 0.8;
+            doughMesh.scale.set(1, scale * 0.5, 1);
+            doughMesh.position.y = 0.1 + (scale * 0.25);
+            doughMesh.visible = params.quantidadeMassa > 0;
+        }
+        updateDough();
+
+        const folderOpera = gui.addFolder('Operação');
+       
+        const ligaController = folderOpera.add(params, 'ligado').name('Botão Ligar/Desligar').onChange(v => {
+            if (v && params.gradeAberta) {
+                alert("Aviso de Segurança: Não é possível ligar a máquina com a grade aberta!");
+                params.ligado = false;
+                ligaController.setValue(false);
+            }
+        });
+       
+        folderOpera.add(params, 'velocidade', 1, 10, 1).name('Velocidade (1 a 10)');
+       
+        const gradeController = folderOpera.add(params, 'gradeAberta').name('Levantar Grade').onChange(v => {
+            if (v && params.ligado) {
+                // Para a máquina se abrir a grade (Interlock de segurança)
+                params.ligado = false;
+                ligaController.setValue(false);
+                console.log("Sistema de segurança ativado. Máquina parada.");
+            }
+        });
+       
+        folderOpera.add(params, 'quantidadeMassa', 0, 100).name('% de Massa').onChange(updateDough);
+
+        folderOpera.open();
+
+        // --- Redimensionamento ---
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // --- Loop de Animação ---
+        const clock = new THREE.Clock();
+
+        function animate() {
+            requestAnimationFrame(animate);
+            const delta = clock.getDelta();
+
+            // Animação da Grade (Abre/Fecha suavemente)
+            const targetAngle = params.gradeAberta ? -Math.PI / 2.5 : 0;
+            guardGroup.rotation.x += (targetAngle - guardGroup.rotation.x) * 10 * delta;
+
+            // Animação de Batimento (Se ligada)
+            if (params.ligado) {
+                // A velocidade baseia-se no valor do slider
+                const speedMult = params.velocidade * 1.5;
+               
+                // Rotação do batedor (rápida)
+                hookMesh.rotation.y += speedMult * delta;
+               
+                // Rotação do tacho e da massa (mais lenta, na direção oposta)
+                bowlGroup.rotation.y -= (speedMult * 0.2) * delta;
+               
+                // Pequeno movimento da massa para simular o batimento
+                doughMesh.rotation.y += (speedMult * 0.5) * delta;
+                doughMesh.scale.x = 1 + Math.sin(Date.now() * 0.01) * 0.02;
+                doughMesh.scale.z = 1 + Math.cos(Date.now() * 0.01) * 0.02;
+            } else {
+                // Volta a massa ao tamanho estático original
+                doughMesh.scale.x = 1;
+                doughMesh.scale.z = 1;
+            }
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+</html>
