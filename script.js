@@ -1,4 +1,4 @@
-      /* ---------- SCROLL PROGRESS ---------- */
+/* ---------- SCROLL PROGRESS ---------- */
       window.addEventListener("scroll", () => {
         const scrolled = window.scrollY;
         const total = document.body.scrollHeight - window.innerHeight;
@@ -251,3 +251,44 @@
           },
         },
       });
+/* ---------- MATERIAL TABS ---------- */
+document.querySelectorAll(".mat-tab").forEach((tab) => {
+  tab.addEventListener("click", () => {
+    const target = tab.getAttribute("data-tab");
+    document.querySelectorAll(".mat-tab").forEach((t) => t.classList.remove("active"));
+    document.querySelectorAll(".mat-panel").forEach((p) => p.classList.remove("active"));
+    tab.classList.add("active");
+    const panel = document.getElementById("tab-" + target);
+    if (panel) panel.classList.add("active");
+  });
+});
+
+/* ---------- UPDATED NAV DOTS (more sections) ---------- */
+// Override dotTargets with all new sections
+const dotTargetsNew = [
+  "hero","origem","materiais","video","cadeia","clientes",
+  "infografico","roi-section","operacao","desafios","inovacao"
+];
+const dotsNew = document.querySelectorAll(".nav-dot");
+
+dotsNew.forEach((dot, i) => {
+  dot.addEventListener("click", () => {
+    const id = dotTargetsNew[i];
+    if (id) document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  });
+});
+
+const sectionElsNew = dotTargetsNew.map((id) => document.getElementById(id)).filter(Boolean);
+const navObsNew = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        const idx = sectionElsNew.indexOf(e.target);
+        dotsNew.forEach((d) => d.classList.remove("active"));
+        if (dotsNew[idx]) dotsNew[idx].classList.add("active");
+      }
+    });
+  },
+  { threshold: 0.35 }
+);
+sectionElsNew.forEach((s) => navObsNew.observe(s));
