@@ -287,7 +287,7 @@
             });
 
             // Grelha hemisférica
-            const guardGeo = new THREE.SphereGeometry(0.58, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2.5);
+            const guardGeo = new THREE.SphereGeometry(0.6, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2.5);
             const guard = new THREE.Mesh(guardGeo, guardWireMat);
             // Reajustar a grelha em relação ao pivot
             guard.position.set(0, -0.5, 0.5);
@@ -297,7 +297,7 @@
             const guardRingGeo = new THREE.TorusGeometry(0.56, 0.015, 8, 32);
             const guardRing = new THREE.Mesh(guardRingGeo, inoxMat);
             guardRing.rotation.x = Math.PI / 2;
-            guardRing.position.set(0, -0.35, 0.5);
+            guardRing.position.set(0, -0.33, 0.5);
             guardGroup.add(guardRing);
         }
 
