@@ -290,7 +290,7 @@
             const guardGeo = new THREE.SphereGeometry(0.58, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2.5);
             const guard = new THREE.Mesh(guardGeo, guardWireMat);
             // Reajustar a grelha em relação ao pivot
-            guard.position.set(0, 0, 0.5);
+            guard.position.set(0, -0.5, 0.5);
             guardGroup.add(guard);
 
             // Anel base da grelha
@@ -363,7 +363,7 @@
 
             // Animação da Grade (Abre/Fecha suavemente)
             const targetAngle = params.gradeAberta ? -Math.PI / 2.5 : 0;
-            guardGroup.rotation.x += (targetAngle - guardGroup.rotation.x) * 10 * delta;
+            guardGroup.rotation.x += (targetAngle - guardGroup.rotation.x) * 7.5 * delta;
 
             // Animação de Batimento (Se ligada)
             if (params.ligado) {
