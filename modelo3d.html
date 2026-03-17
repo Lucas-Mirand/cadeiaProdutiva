@@ -294,10 +294,10 @@
             guardGroup.add(guard);
 
             // Anel base da grelha
-            const guardRingGeo = new THREE.TorusGeometry(0.58, 0.015, 8, 32);
+            const guardRingGeo = new THREE.TorusGeometry(0.56, 0.015, 8, 32);
             const guardRing = new THREE.Mesh(guardRingGeo, inoxMat);
             guardRing.rotation.x = Math.PI / 2;
-            guardRing.position.set(0, -0.4, 0.5);
+            guardRing.position.set(0, -0.35, 0.5);
             guardGroup.add(guardRing);
         }
 
